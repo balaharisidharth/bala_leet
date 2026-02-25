@@ -1,0 +1,24 @@
+// Last updated: 25/02/2026, 10:31:43
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        Deque<Integer> stack = new ArrayDeque<>();
+
+        int n = nums.length;
+        int[] ans = new int[n];
+        Arrays.fill(ans, -1);
+        for (int i = 0; i < 2 * n; i++) {
+            int idx = i % n;
+            while (!stack.isEmpty() && 
+                                nums[idx] > nums[stack.peek()]) {
+                ans[stack.pop()] = nums[idx];
+            }
+
+            if (i < n) {
+                stack.push(idx);
+            }
+
+        }
+
+        return ans;
+    }
+}
