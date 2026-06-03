@@ -1,4 +1,4 @@
-// Last updated: 03/06/2026, 11:44:50
+// Last updated: 03/06/2026, 11:45:44
 1class Solution {
 2    public int[] concatWithReverse(int[] nums) {
 3        int n=nums.length;
@@ -9,9 +9,10 @@
 8        }
 9        if(i==n){
 10            for(int j=n-1;j>=0;j--){
-11                arr[i++]=nums[j];
-12            }
-13        }
-14        return arr;
-15    }
-16}
+11                arr[i]=nums[j];
+12                i++;
+13            }
+14        }
+15        return arr;
+16    }
+17}
