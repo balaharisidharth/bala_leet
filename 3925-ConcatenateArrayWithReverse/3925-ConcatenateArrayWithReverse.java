@@ -1,23 +1,21 @@
-// Last updated: 03/06/2026, 12:01:13
+// Last updated: 03/06/2026, 13:23:36
 1class Solution {
-2    public int search(int[] nums, int target) {
-3        int left = 0, right = nums.length - 1;
-4        while(left <= right)
-5        {
-6            int mid = left + (right - left) / 2;
-7            if(nums[mid] == target)
-8            {
-9                return mid;
-10            }
-11            else if(nums[mid] < target)
-12            {
-13                left = mid + 1;
-14            }
-15            else
-16            {
-17                right = mid - 1;
-18            }
-19        }
-20        return -1;
-21    }
-22}
+2    public boolean searchMatrix(int[][] matrix, int target) {
+3        int s=0;
+4        int row=matrix.length;
+5        int col=matrix[0].length;
+6        int e=row*col-1;
+7        while(s<=e){
+8            int mid=(e+s)/2;
+9            int val=matrix[mid/col][mid%col];
+10            if(val==target) return true;
+11            if(val>target){
+12                e=mid-1;}
+13                else{
+14                    s=mid+1;
+15                }
+16            
+17        }
+18        return false;
+19    }
+20}
