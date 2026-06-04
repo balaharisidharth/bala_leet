@@ -1,4 +1,4 @@
-// Last updated: 04/06/2026, 11:08:26
+// Last updated: 04/06/2026, 11:09:40
 1class Solution {
 2    public int maximumUnits(int[][] boxTypes, int truckSize) {
 3        int sum=0;
@@ -24,18 +24,15 @@
 23        truckSize--;
 24        }
 25
-26        if(truckSize==0){
-27            break;
+26        }
+27        return sum;
 28        }
-29        }
-30        return sum;
-31        }
-32    //     	   for(int k=0;k<boxTypes.length;k++){
-33	//        for(int m=0;m<boxTypes[k].length;m++){
-34	//            System.out.print(boxTypes[k][m]+" ");
-35	//        }
-36	//            System.out.println(" ");
-37	       
-38	//    }
-39
-40    }
+29    //     	   for(int k=0;k<boxTypes.length;k++){
+30	//        for(int m=0;m<boxTypes[k].length;m++){
+31	//            System.out.print(boxTypes[k][m]+" ");
+32	//        }
+33	//            System.out.println(" ");
+34	       
+35	//    }
+36
+37    }
