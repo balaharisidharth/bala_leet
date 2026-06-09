@@ -1,19 +1,32 @@
-// Last updated: 01/06/2026, 06:41:42
-1class Solution {
-2    public int removeElement(int[] nums, int val) {
-3        
-4        int c = 0;
-5        for(int i = 0; i < nums.length; i++){
-6            if(nums[i] != val){
-7                nums[c] = nums[i];
-8                c++;
-9                
-10            }
-11            
-12        }
-13        
-14        return c;
-15    }
-16    
-17
-18}
+// Last updated: 09/06/2026, 14:59:00
+1/**
+2 * Definition for singly-linked list.
+3 * public class ListNode {
+4 *     int val;
+5 *     ListNode next;
+6 *     ListNode() {}
+7 *     ListNode(int val) { this.val = val; }
+8 *     ListNode(int val, ListN ode next) { this.val = val; this.next = next; }
+9 * }
+10 */
+11class Solution {
+12    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+13        ListNode ans=new ListNode(-1);
+14        ListNode temp=ans;
+15        while(list1!=null && list2!=null){
+16            if(list1.val<list2.val){
+17                temp.next=new ListNode(list1.val);
+18                temp=temp.next;
+19                list1=list1.next;
+20            }
+21            else{
+22                temp.next=new ListNode(list2.val);
+23                temp=temp.next;
+24                list2=list2.next;
+25            }
+26        }
+27        if(list1 != null) temp.next=list1;
+28        if(list2 != null) temp.next=list2;
+29        return ans.next;
+30    }
+31}
