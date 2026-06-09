@@ -1,4 +1,4 @@
-// Last updated: 09/06/2026, 11:35:14
+// Last updated: 09/06/2026, 11:36:52
 1/**
 2 * Definition for singly-linked list.
 3 * public class ListNode {
@@ -24,8 +24,8 @@
 23        for(int i=0;i<b-1;i++){
 24            c=c.next;
 25        }
-26        System.out.println(a);
-27        System.out.println(b);
+26        // System.out.println(a);
+27        // System.out.println(b);
 28    return c;
 29    }
 30}
