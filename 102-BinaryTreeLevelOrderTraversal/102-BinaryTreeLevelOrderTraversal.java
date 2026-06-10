@@ -1,4 +1,4 @@
-// Last updated: 10/06/2026, 14:25:01
+// Last updated: 10/06/2026, 14:31:48
 1/**
 2 * Definition for a binary tree node.
 3 * public class TreeNode {
@@ -32,11 +32,10 @@
 31                if(q.peek().right!=null){
 32                    q.add(q.peek().right);
 33                }
-34
-35                temp.add(q.remove().val);
-36            }
-37            ans.add(temp);
-38        }
-39        return ans;
-40    }
-41}
+34                temp.add(q.remove().val);
+35            }
+36            ans.add(temp);
+37        }
+38        return ans;
+39    }
+40}
