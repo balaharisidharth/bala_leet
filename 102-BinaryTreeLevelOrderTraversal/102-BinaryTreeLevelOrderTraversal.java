@@ -1,4 +1,4 @@
-// Last updated: 10/06/2026, 14:06:21
+// Last updated: 10/06/2026, 14:25:01
 1/**
 2 * Definition for a binary tree node.
 3 * public class TreeNode {
@@ -23,20 +23,20 @@
 22        }
 23        q.add(root);
 24        while(!q.isEmpty()){
-25            int size=q.size();
+25            int s=q.size();
 26            List<Integer> temp=new ArrayList<>();
-27            for(int i=0;i<size;i++){
+27            for(int i=0;i<s;i++){
 28                if(q.peek().left!=null){
 29                    q.add(q.peek().left);
 30                }
 31                if(q.peek().right!=null){
 32                    q.add(q.peek().right);
 33                }
-34                temp.add(q.remove().val);
-35            }
-36            ans.add(temp);
-37        }
-38        return ans;
-39
+34
+35                temp.add(q.remove().val);
+36            }
+37            ans.add(temp);
+38        }
+39        return ans;
 40    }
 41}
