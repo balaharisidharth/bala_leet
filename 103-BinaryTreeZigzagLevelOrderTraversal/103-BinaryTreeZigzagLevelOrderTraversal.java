@@ -1,4 +1,4 @@
-// Last updated: 11/06/2026, 14:17:07
+// Last updated: 11/06/2026, 14:54:40
 1/**
 2 * Definition for a binary tree node.
 3 * public class TreeNode {
@@ -15,19 +15,19 @@
 14 * }
 15 */
 16class Solution {
-17    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-18        List<List<Integer>> ll=new ArrayList<>();
-19        Queue<TreeNode> q=new LinkedList<>();
-20        if(root==null){
-21            return ll;
+17    public List<Integer> rightSideView(TreeNode root) {
+18        Queue<TreeNode> q = new LinkedList<>();
+19        List<Integer> ans = new ArrayList<>();
+20        if (root == null) {
+21            return ans;
 22        }
 23        q.add(root);
-24        int count=1;
-25        while(!q.isEmpty()){
-26            int s=q.size();
-27            List<Integer> temp=new ArrayList<>();
-28            for(int i=0;i<s;i++){
-29                if(q.peek().left!=null){
+24
+25        while (!q.isEmpty()) {
+26            int s = q.size();
+27            List<Integer> temp = new ArrayList<>();
+28            for (int i = 0; i < s; i++) {
+29                if (q.peek().left != null) {
 30                    q.add(q.peek().left);
 31                }
 32                if(q.peek().right!=null){
@@ -35,16 +35,8 @@
 34                }
 35                temp.add(q.remove().val);
 36            }
-37            if(count%2!=0){
-38               ll.add(temp);
-39            }
-40            else{
-41                Collections.reverse(temp);
-42                ll.add(temp);
-43            }
-44            count++;
-45        }
-46        return ll;
-47        
-48    }
-49}
+37            ans.add(temp.get((temp.size())-1));
+38        }
+39        return ans;
+40    }
+41}
