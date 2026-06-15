@@ -1,4 +1,4 @@
-// Last updated: 15/06/2026, 12:02:05
+// Last updated: 15/06/2026, 12:02:40
 1class Solution {
 2    public int closedIsland(int[][] grid) {
 3        int c = 0;
@@ -25,7 +25,7 @@
 24            for (int j = 0; j < col; j++) {
 25                if (grid[i][j] == 0) {
 26                    c++;
-27                    travel(grid, i, j);
+27                    travel1(grid, i, j);
 28                }
 29            }
 30
@@ -34,16 +34,16 @@
 33        return c;
 34    }
 35
-36    void travel(int[][] grid, int row, int col) {
-37        if (col >= grid[0].length - 1 || col <= 0 || row <= 0 || row >= grid.length - 1 || grid[row][col] == 1) {
-38            return;
-39        }
-40        grid[row][col] = 1;
-41        travel(grid, row + 1, col);
-42        travel(grid, row, col - 1);
-43        travel(grid, row - 1, col);
-44        travel(grid, row, col + 1);
-45    }
+36    // void travel(int[][] grid, int row, int col) {
+37    //     if (col >= grid[0].length - 1 || col <= 0 || row <= 0 || row >= grid.length - 1 || grid[row][col] == 1) {
+38    //         return;
+39    //     }
+40    //     grid[row][col] = 1;
+41    //     travel(grid, row + 1, col);
+42    //     travel(grid, row, col - 1);
+43    //     travel(grid, row - 1, col);
+44    //     travel(grid, row, col + 1);
+45    // }
 46
 47    void travel1(int[][] grid, int row, int col) {
 48        if (col >= grid[0].length || col < 0 || row < 0 || row >= grid.length || grid[row][col] == 1) {
