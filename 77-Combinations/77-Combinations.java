@@ -1,28 +1,20 @@
-// Last updated: 12/06/2026, 11:57:49
+// Last updated: 27/06/2026, 12:20:54
 1class Solution {
-2    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-3        List<List<Integer>> ans = new ArrayList<>();
-4        List<Integer> temp = new ArrayList<>();
-5        Arrays.sort(candidates);
-6            method(ans,temp,candidates,target,0);
-7            return ans;
+2    public List<List<Integer>> combine(int n, int k) {
+3        List<List<Integer>> ans=new ArrayList<>();
+4        List<Integer> temp=new ArrayList<>();
+5        method(ans,temp,n,k,1);
+6        return ans;
+7    }
 8
-9    }
-10
-11    void method(List<List<Integer>> ans, List<Integer> temp, int[] can, int target,int start) {
-12        int n = can.length;
-13
-14        if(target==0){
-15            if(!ans.contains(temp))
-16            ans.add(new ArrayList<>(temp));
-17            return;
-18        }
-19        for(int i=start;i<n;i++){
-20            if(i>start && can[i]==can[i-1]) continue;
-21            if(can[i]>target) break;
-22            temp.add(can[i]);
-23            method(ans,temp,can,target-can[i],i+1);
-24            temp.remove(temp.size()-1);
-25        }
-26    }
-27}
+9    void method(List<List<Integer>> ans,List<Integer> temp,int n,int k,int start){
+10        if(temp.size()==k){
+11            ans.add(new ArrayList<>(temp));
+12        }
+13        for(int i= start;i<=n;i++){
+14            temp.add(i);
+15            method(ans,temp,n,k,i+1);
+16            temp.remove(temp.size()-1);
+17        }
+18    }
+19}
