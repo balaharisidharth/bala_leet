@@ -1,39 +1,40 @@
-// Last updated: 27/06/2026, 09:27:45
-1class Solution {
-2    public boolean isMatch(String s, String p) {
-3        return match(s, p, 0, 0);
-4    }
-5    
-6    private boolean match(String s, String p, int sIndex, int pIndex) {
-7        if (sIndex == s.length() && pIndex == p.length()) {
-8            return true;
-9        }
-10
-11        if (pIndex == p.length()) {
-12            return false;
-13        }
-14        
-15        char current_char = p.charAt(pIndex);
-16        boolean has_star = (pIndex + 1 < p.length() && p.charAt(pIndex + 1) == '*');
-17        
-18        if (has_star) {
-19            if (match(s, p, sIndex, pIndex + 2)) {
-20                return true;
-21            }
-22            
-23            int i = sIndex;
-24            while (i < s.length() && (current_char == '.' || s.charAt(i) == current_char)) {
-25                if (match(s, p, i + 1, pIndex + 2)) {
-26                    return true;
-27                }
-28                i++;
-29            }
-30            return false;
-31        } else {
-32            if (sIndex < s.length() && (current_char == '.' || s.charAt(sIndex) == current_char)) {
-33                return match(s, p, sIndex + 1, pIndex + 1);
-34            }
-35            return false;
-36        }
-37    }
-38}
+// Last updated: 27/06/2026, 09:28:25
+1/**
+2 * Definition for singly-linked list.
+3 * public class ListNode {
+4 *     int val;
+5 *     ListNode next;
+6 *     ListNode() {}
+7 *     ListNode(int val) { this.val = val; }
+8 *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+9 * }
+10 */
+11class Solution {
+12    public ListNode mergeKLists(ListNode[] lists) {
+13     
+14        //coz node is not comparable in java unlike Integer is we used custom comparator
+15       PriorityQueue<ListNode> pq = new  PriorityQueue<>((a,b)-> Integer.compare(a.val,b.val));
+16
+17        //get all the node and add it in pq
+18       for(ListNode node : lists){
+19         if(node != null){
+20            pq.offer(node);
+21         }
+22       }
+23
+24       ListNode dummy = new ListNode(0);
+25       ListNode temp = dummy;
+26       
+27       //we are using minHeap so it will give me smallest node on pop
+28       while(!pq.isEmpty()){
+29            ListNode smallest = pq.poll(); //get the smallest
+30            temp.next = smallest; //adding in ans node
+31            temp = temp.next; //move pointer for adding next smaller node
+32
+33            //also check if next node occurs in that specific list or not from where we are extracting
+34            if(smallest.next != null) pq.offer(smallest.next);
+35       }
+36    return dummy.next;
+37
+38    }
+39}
