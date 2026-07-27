@@ -1,31 +1,43 @@
-// Last updated: 27/07/2026, 09:01:41
-1import java.util.*;
-2
-3class Solution {
-4    Map<String, Boolean> mp = new HashMap<>();
-5
-6    public boolean isScramble(String s1, String s2) {
-7        int n = s1.length();
-8        if (s1.equals(s2)) return true;
-9        if (n == 1) return false;
-10
-11        String key = s1 + " " + s2;
-12
-13        if (mp.containsKey(key)) return mp.get(key);
-14
-15        for (int i = 1; i < n; i++) {
-16            if (isScramble(s1.substring(0, i), s2.substring(0, i)) && isScramble(s1.substring(i), s2.substring(i))){
-17                mp.put(key, true);
-18                return true;
-19            }
-20
-21            if (isScramble(s1.substring(0, i), s2.substring(n - i)) && isScramble(s1.substring(i), s2.substring(0, n - i))){
-22                mp.put(key, true);
-23                return true;
-24            }
-25        }
-26
-27        mp.put(key, false);
-28        return false;
-29    }
-30}
+// Last updated: 27/07/2026, 09:02:43
+1public class Solution {
+2public int maximalRectangle(char[][] matrix) {
+3    if(matrix == null || matrix.length == 0 || matrix[0].length == 0) return 0;
+4    
+5    int[] height = new int[matrix[0].length];
+6    for(int i = 0; i < matrix[0].length; i ++){
+7        if(matrix[0][i] == '1') height[i] = 1;
+8    }
+9    int result = largestInLine(height);
+10    for(int i = 1; i < matrix.length; i ++){
+11        resetHeight(matrix, height, i);
+12        result = Math.max(result, largestInLine(height));
+13    }
+14    
+15    return result;
+16}
+17
+18private void resetHeight(char[][] matrix, int[] height, int idx){
+19    for(int i = 0; i < matrix[0].length; i ++){
+20        if(matrix[idx][i] == '1') height[i] += 1;
+21        else height[i] = 0;
+22    }
+23}    
+24
+25public int largestInLine(int[] height) {
+26    if(height == null || height.length == 0) return 0;
+27    int len = height.length;
+28    Stack<Integer> s = new Stack<Integer>();
+29    int maxArea = 0;
+30    for(int i = 0; i <= len; i++){
+31        int h = (i == len ? 0 : height[i]);
+32        if(s.isEmpty() || h >= height[s.peek()]){
+33            s.push(i);
+34        }else{
+35            int tp = s.pop();
+36            maxArea = Math.max(maxArea, height[tp] * (s.isEmpty() ? i : i - 1 - s.peek()));
+37            i--;
+38        }
+39    }
+40    return maxArea;
+41}
+42}
