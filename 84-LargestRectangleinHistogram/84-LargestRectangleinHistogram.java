@@ -1,27 +1,26 @@
-// Last updated: 27/07/2026, 09:04:48
-1import java.util.Stack;
-2
-3class Solution {
-4    public int largestRectangleArea(int[] heights) {
-5        Stack<Integer> stack = new Stack<>();
-6        stack.push(-1);
-7        int maxArea = 0;
-8
-9        for (int i = 0; i < heights.length; i++) {
-10            while (stack.peek() != -1 && heights[i] <= heights[stack.peek()]) {
-11                int height = heights[stack.pop()];
-12                int width = i - stack.peek() - 1;
-13                maxArea = Math.max(maxArea, height * width);
-14            }
-15            stack.push(i);
-16        }
-17
-18        while (stack.peek() != -1) {
-19            int height = heights[stack.pop()];
-20            int width = heights.length - stack.peek() - 1;
-21            maxArea = Math.max(maxArea, height * width);
-22        }
-23
-24        return maxArea;
-25    }
-26}
+// Last updated: 27/07/2026, 09:05:35
+1class Solution {
+2public int numDistinct(String S, String T) {
+3    // array creation
+4    int[][] mem = new int[T.length()+1][S.length()+1];
+5
+6    // filling the first row: with 1s
+7    for(int j=0; j<=S.length(); j++) {
+8        mem[0][j] = 1;
+9    }
+10    
+11    // the first column is 0 by default in every other rows but the first, which we need.
+12    
+13    for(int i=0; i<T.length(); i++) {
+14        for(int j=0; j<S.length(); j++) {
+15            if(T.charAt(i) == S.charAt(j)) {
+16                mem[i+1][j+1] = mem[i][j] + mem[i+1][j];
+17            } else {
+18                mem[i+1][j+1] = mem[i+1][j];
+19            }
+20        }
+21    }
+22    
+23    return mem[T.length()][S.length()];
+24}
+25}
