@@ -1,26 +1,19 @@
-// Last updated: 27/07/2026, 09:05:35
+// Last updated: 27/07/2026, 09:06:37
 1class Solution {
-2public int numDistinct(String S, String T) {
-3    // array creation
-4    int[][] mem = new int[T.length()+1][S.length()+1];
-5
-6    // filling the first row: with 1s
-7    for(int j=0; j<=S.length(); j++) {
-8        mem[0][j] = 1;
-9    }
-10    
-11    // the first column is 0 by default in every other rows but the first, which we need.
-12    
-13    for(int i=0; i<T.length(); i++) {
-14        for(int j=0; j<S.length(); j++) {
-15            if(T.charAt(i) == S.charAt(j)) {
-16                mem[i+1][j+1] = mem[i][j] + mem[i+1][j];
-17            } else {
-18                mem[i+1][j+1] = mem[i+1][j];
-19            }
-20        }
-21    }
-22    
-23    return mem[T.length()][S.length()];
-24}
-25}
+2    public int maxProfit(int[] prices) {
+3        int buy1 = -prices[0];
+4        int sell1 = 0;
+5        int buy2 = -prices[0];
+6        int sell2 = 0;
+7
+8        for (int i = 1; i < prices.length; i++) {
+9            int price = prices[i];
+10            buy1 = Math.max(buy1, -price);
+11            sell1 = Math.max(sell1, buy1 + price);
+12            buy2 = Math.max(buy2, sell1 - price);
+13            sell2 = Math.max(sell2, buy2 + price);
+14        }
+15
+16        return sell2;        
+17    }
+18}
