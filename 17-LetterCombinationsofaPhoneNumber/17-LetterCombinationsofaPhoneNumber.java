@@ -1,22 +1,40 @@
-// Last updated: 03/08/2026, 08:51:04
+// Last updated: 03/08/2026, 08:51:51
 1class Solution {
-2    public List<String> letterCombinations(String digits) {
-3        if (digits.isEmpty()) return Collections.emptyList();
-4
-5        String[] phone_map = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-6        List<String> output = new ArrayList<>();
-7        backtrack("", digits, phone_map, output);
-8        return output;
-9    }
-10
-11    private void backtrack(String combination, String next_digits, String[] phone_map, List<String> output) {
-12        if (next_digits.isEmpty()) {
-13            output.add(combination);
-14        } else {
-15            String letters = phone_map[next_digits.charAt(0) - '2'];
-16            for (char letter : letters.toCharArray()) {
-17                backtrack(combination + letter, next_digits.substring(1), phone_map, output);
-18            }
-19        }
-20    }
-21}
+2    public List<List<Integer>> fourSum(int[] nums, int target) {
+3        List<List<Integer>> li=new ArrayList<>();
+4        if(nums==null || nums.length<4){
+5            return li;
+6        }
+7        Arrays.sort(nums);
+8        for(int i=0;i<nums.length-3;i++){
+9            if(i>0&&nums[i]==nums[i-1]){
+10                continue;
+11            }
+12            for(int j=i+1;j<nums.length-2;j++){
+13                if(j>i+1&&nums[j]==nums[j-1]){
+14                    continue;
+15                }
+16                int left=j+1; int right=nums.length-1;
+17                while(left<right){
+18                    long sum=(long)nums[i]+nums[j]+nums[left]+nums[right];
+19                    if(sum==target){
+20                        li.add(Arrays.asList(nums[i],nums[j],nums[left],nums[right]));
+21                        while(left<right&&nums[left]==nums[left+1]){
+22                            left++;
+23                        }
+24                        while(left<right&&nums[right]==nums[right+-1]){
+25                            right--;
+26                        }
+27                        left++;
+28                        right--;
+29                    }else if(sum<target){
+30                        left++;
+31                    }else{
+32                        right--;
+33                    }
+34                }
+35            }
+36        }
+37        return li;
+38    }
+39}
