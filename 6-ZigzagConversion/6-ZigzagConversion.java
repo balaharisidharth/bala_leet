@@ -1,37 +1,28 @@
-// Last updated: 03/08/2026, 09:18:13
+// Last updated: 03/08/2026, 09:19:14
 1class Solution {
-2    public int myAtoi(String s) {
-3        s = s.trim();
-4        int sign = 1, i = 0;
-5        long res = 0;
+2   public  String countAndSay(int n) {
+3        String[] weKnow = {"1","11","21","1211","111221","312211","13112221","1113213211","31131211131221"};
+4        return findRle(n,weKnow);
+5    }
 6
-7        if (s.length() == 0)
-8            return 0;
-9
-10        if (s.charAt(0) == '-') {
-11            sign = -1;
-12            i++;
-13        }
-14        else if (s.charAt(0) == '+')
-15            i++;
-16
-17        while (i < s.length()) {
-18            char ch = s.charAt(i);
-19
-20            if (ch < '0' || ch > '9')
-21                break;
-22
-23            res = res * 10 + (ch - '0');
-24
-25            if (sign * res > Integer.MAX_VALUE)
-26                return Integer.MAX_VALUE;
-27
-28            if (sign * res < Integer.MIN_VALUE)
-29                return Integer.MIN_VALUE;
-30
-31            i++;
-32        }
-33
-34        return (int) (sign * res);
-35    }
-36}
+7
+8    public  String findRle(int n,String[] arr ){
+9        if (n <= 9){
+10            return arr[n-1];
+11        }
+12        String str =  findRle(n-1,arr);
+13        StringBuilder ans = new StringBuilder();
+14        int count = 1;
+15        for (int i = 1; i <= str.length(); i++) {
+16            if (i < str.length() &&str.charAt(i-1) == str.charAt(i)){
+17                count++;
+18            }else{
+19                ans.append(count);
+20                ans.append(str.charAt(i-1));
+21                count = 1;
+22            }
+23        }
+24        return ans.toString();
+25
+26    }
+27}
