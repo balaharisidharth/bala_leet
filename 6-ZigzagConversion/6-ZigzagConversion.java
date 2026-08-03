@@ -1,64 +1,41 @@
-// Last updated: 03/08/2026, 09:20:24
+// Last updated: 03/08/2026, 09:21:06
 1class Solution {
-2    public int[][] generateMatrix(int n) {
-3        // Result matrix
-4        int[][] spiralMatrix = new int[n][n];
-5
-6        // Directions: right, down, left, up
-7        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+2
+3    private int solve(int i, int j, int m, int n, int[][] dp) {
+4
+5        if (i >= m || j >= n) {
+6            return 0;
+7        }
 8
-9        // Current direction index
-10        int index = 0;
-11
-12        // Number to be filled in the matrix
-13        int num = 1;
-14
-15        // Boundaries of the current spiral layer
-16        int maxRows = n - 1;
-17        int minRows = 0;
-18        int maxCols = n - 1;
-19        int minCols = 0;
-20
-21        // Start from top-left corner
-22        for (int row = 0, col = 0;
-23             row >= minRows && col >= minCols && row <= maxRows && col <= maxCols; ) {
+9        if (i == m - 1 || j == n - 1) {
+10            return 1;
+11        }
+12
+13        if (dp[i][j] != -1) {
+14            return dp[i][j];
+15        }
+16
+17        int right = solve(i, j + 1, m, n, dp);
+18        int down = solve(i + 1, j, m, n, dp);
+19
+20        return dp[i][j] = right + down;
+21    }
+22
+23    public int uniquePaths(int m, int n) {
 24
-25            // Fill current cell
-26            spiralMatrix[row][col] = num++;
-27
-28            // If moving right and reached right boundary,
-29            // turn down and shrink top boundary
-30            if (index == 0 && col == maxCols) {
-31                index++;
-32                minRows++;
-33            }
+25        if (m == 1 && n == 1) {
+26            return 1;
+27        }
+28
+29        int[][] dp = new int[m][n];
+30
+31        for (int[] row : dp) {
+32            Arrays.fill(row, -1);
+33        }
 34
-35            // If moving down and reached bottom boundary,
-36            // turn left and shrink right boundary
-37            if (index == 1 && row == maxRows) {
-38                index++;
-39                maxCols--;
-40            }
-41
-42            // If moving left and reached left boundary,
-43            // turn up and shrink bottom boundary
-44            if (index == 2 && col == minCols) {
-45                index++;
-46                maxRows--;
-47            }
-48
-49            // If moving up and reached top boundary,
-50            // turn right and shrink left boundary
-51            if (index == 3 && row == minRows) {
-52                index = 0;
-53                minCols++;
-54            }
-55
-56            // Move to next cell based on current direction
-57            row += directions[index][0];
-58            col += directions[index][1];
-59        }
-60
-61        return spiralMatrix;
-62    }
-63}
+35        int right = solve(0, 1, m, n, dp);
+36        int down = solve(1, 0, m, n, dp);
+37
+38        return right + down;
+39    }
+40}
