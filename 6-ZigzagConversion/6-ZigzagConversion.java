@@ -1,36 +1,38 @@
-// Last updated: 03/08/2026, 09:26:34
-1class Solution {
-2    public boolean search(int[] nums, int target) {
-3        int n = nums.length;
-4        int l = 0;
-5        int r = n - 1;
-6        while (r >= l) {             // both l and r goes to min index
-7            int m = (l + r) / 2;
-8            if (nums[m] == target)
-9                return true;
-10
-11
-12            if (nums[m] == nums[l] && nums[m] == nums[r]) {        //FIXING WHERE IF L M AND R ARE SAME
-13                r -= 1;     
-14                l += 1;
-15                continue;
-16            }
-17
-18
-19
-20            if (nums[l] > nums[m]) {            // right side sorted
-21                if (target >= nums[m] && target <= nums[r])
-22                    l = m + 1;
-23                else
-24                    r = m - 1;
-25            }
-26            else {
-27                if (target >= nums[l] && target <= nums[m])
-28                    r = m - 1;
-29                else
-30                    l = m + 1;
-31            }
-32        }
-33        return false;
-34    }
-35}
+// Last updated: 03/08/2026, 09:28:41
+1/**
+2 * Definition for singly-linked list.
+3 * public class ListNode {
+4 *     int val;
+5 *     ListNode next;
+6 *     ListNode() {}
+7 *     ListNode(int val) { this.val = val; }
+8 *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+9 * }
+10 */
+11class Solution {
+12    public ListNode deleteDuplicates(ListNode head) {
+13        if(head==null||head.next==null)
+14        return head;
+15        ListNode prev = new ListNode(-1);
+16        ListNode dummy = prev;
+17        dummy.next=head;
+18        ListNode curr = head;
+19        while(curr!=null&&curr.next!=null)
+20        {
+21            if(curr.val==curr.next.val)
+22            {
+23                while(curr.next!=null&&curr.val==curr.next.val)
+24                {
+25                    curr=curr.next;
+26                }
+27                dummy.next=curr.next;
+28            }
+29            else
+30            {
+31                dummy=dummy.next;
+32            }
+33            curr=curr.next;
+34        }
+35        return prev.next;
+36    }
+37}
