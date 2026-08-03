@@ -1,18 +1,36 @@
-// Last updated: 03/08/2026, 09:25:45
+// Last updated: 03/08/2026, 09:26:34
 1class Solution {
-2    public String simplifyPath(String path) {
-3        Deque<String> dir_stack = new ArrayDeque<>();
-4        for (String dir : path.split("/")) {
-5            if (!dir_stack.isEmpty() && dir.equals("..")) {
-6                dir_stack.removeLast();
-7            } else if (!dir.equals(".") && !dir.equals("") && !dir.equals("..")) {
-8                dir_stack.addLast(dir);
-9            }
-10        }
-11        StringBuilder simplified_path = new StringBuilder();
-12        for (String dir : dir_stack) {
-13            simplified_path.append("/").append(dir);
-14        }
-15        return simplified_path.length() == 0 ? "/" : simplified_path.toString();
-16    }
-17}
+2    public boolean search(int[] nums, int target) {
+3        int n = nums.length;
+4        int l = 0;
+5        int r = n - 1;
+6        while (r >= l) {             // both l and r goes to min index
+7            int m = (l + r) / 2;
+8            if (nums[m] == target)
+9                return true;
+10
+11
+12            if (nums[m] == nums[l] && nums[m] == nums[r]) {        //FIXING WHERE IF L M AND R ARE SAME
+13                r -= 1;     
+14                l += 1;
+15                continue;
+16            }
+17
+18
+19
+20            if (nums[l] > nums[m]) {            // right side sorted
+21                if (target >= nums[m] && target <= nums[r])
+22                    l = m + 1;
+23                else
+24                    r = m - 1;
+25            }
+26            else {
+27                if (target >= nums[l] && target <= nums[m])
+28                    r = m - 1;
+29                else
+30                    l = m + 1;
+31            }
+32        }
+33        return false;
+34    }
+35}
