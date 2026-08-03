@@ -1,16 +1,18 @@
-// Last updated: 03/08/2026, 09:24:46
+// Last updated: 03/08/2026, 09:25:45
 1class Solution {
-2    public int minPathSum(int[][] grid) {
-3        int m = grid.length, n = grid[0].length;
-4        
-5        for (int i = 1; i < m; i++) grid[i][0] += grid[i-1][0];
-6        
-7        for (int j = 1; j < n; j++) grid[0][j] += grid[0][j-1];
-8        
-9        for (int i = 1; i < m; i++)
-10            for (int j = 1; j < n; j++)
-11                grid[i][j] += Math.min(grid[i-1][j], grid[i][j-1]);
-12        
-13        return grid[m-1][n-1];
-14    }
-15}
+2    public String simplifyPath(String path) {
+3        Deque<String> dir_stack = new ArrayDeque<>();
+4        for (String dir : path.split("/")) {
+5            if (!dir_stack.isEmpty() && dir.equals("..")) {
+6                dir_stack.removeLast();
+7            } else if (!dir.equals(".") && !dir.equals("") && !dir.equals("..")) {
+8                dir_stack.addLast(dir);
+9            }
+10        }
+11        StringBuilder simplified_path = new StringBuilder();
+12        for (String dir : dir_stack) {
+13            simplified_path.append("/").append(dir);
+14        }
+15        return simplified_path.length() == 0 ? "/" : simplified_path.toString();
+16    }
+17}
