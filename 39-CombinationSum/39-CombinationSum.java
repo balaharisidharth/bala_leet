@@ -1,21 +1,18 @@
-// Last updated: 03/08/2026, 09:01:33
-1public class Solution {
-2    public void rotate(int[][] matrix) {
-3        for(int i = 0; i<matrix.length; i++){
-4            for(int j = i; j<matrix[0].length; j++){
-5                int temp = 0;
-6                temp = matrix[i][j];
-7                matrix[i][j] = matrix[j][i];
-8                matrix[j][i] = temp;
-9            }
-10        }
-11        for(int i =0 ; i<matrix.length; i++){
-12            for(int j = 0; j<matrix.length/2; j++){
-13                int temp = 0;
-14                temp = matrix[i][j];
-15                matrix[i][j] = matrix[i][matrix.length-1-j];
-16                matrix[i][matrix.length-1-j] = temp;
-17            }
-18        }
-19    }
-20}
+// Last updated: 03/08/2026, 09:02:27
+1class Solution {
+2    public List<List<String>> groupAnagrams(String[] strs) {
+3        Map<String, List<String>> map = new HashMap<>();
+4
+5        for (String word : strs) {
+6            char[] chars = word.toCharArray();
+7            Arrays.sort(chars);
+8            String key = new String(chars);
+9
+10            List<String> group = map.getOrDefault(key, new ArrayList<>());
+11            group.add(word);
+12            map.put(key, group);
+13        }
+14
+15        return new ArrayList<>(map.values());
+16    }
+17}
