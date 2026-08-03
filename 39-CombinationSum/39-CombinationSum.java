@@ -1,43 +1,48 @@
-// Last updated: 03/08/2026, 09:05:12
-1class Solution {
-2    public List<Integer> spiralOrder(int[][] matrix) {
-3        List<Integer> ans = new ArrayList<>();          // Stores the Output
-4
-5        int top = 0;                                    // Top row
-6        int rightColumn = matrix[0].length - 1;     // Right Column
-7        int bottom = matrix.length - 1;             // Bottom row
-8        int leftColumn = 0;                         // Left Column
-9
-10        while (top <= bottom && rightColumn >= leftColumn) {
-11            // Print Top
-12            for (int i = leftColumn; i <= rightColumn ; i++) {
-13                ans.add(matrix[top][i]);
-14            }
-15            top++;
-16
-17            // Print Right Column
-18            for (int i = top; i <= bottom; i++) {
-19                ans.add(matrix[i][rightColumn]);
-20            }
-21            rightColumn--;
+// Last updated: 03/08/2026, 09:05:50
+1/**
+2 * Definition for singly-linked list.
+3 * public class ListNode {
+4 *     int val;
+5 *     ListNode next;
+6 *     ListNode() {}
+7 *     ListNode(int val) { this.val = val; }
+8 *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+9 * }
+10 */
+11class Solution {
+12    public ListNode rotateRight(ListNode head, int k) {
+13        if (head == null || head.next == null || k == 0) return head;
+14
+15        int len = 1;
+16        ListNode tail = head;
+17
+18        while (tail.next != null) {
+19            len++;
+20            tail = tail.next;
+21        }
 22
-23            // Print bottom
-24            if(top <= bottom){
-25                for (int i = rightColumn; i >= leftColumn; i--) {
-26                    ans.add(matrix[bottom][i]);
-27                }
-28                bottom--;
-29            }
+23        k = k % len;
+24
+25        if (k == 0) return head;
+26
+27        tail.next = head;
+28
+29        ListNode newLastNode = findKthNode(head, len - k);
 30
-31            // Print Left Column
-32            if(leftColumn <= rightColumn){
-33                for (int i = bottom; i >= top; i--) {
-34                    ans.add(matrix[i][leftColumn]);
-35                }
-36                leftColumn++;
-37            }
-38            
-39        }
-40        return ans;
-41    }
-42}
+31        head = newLastNode.next;
+32        newLastNode.next = null;
+33
+34        return head;
+35    }
+36
+37    public ListNode findKthNode(ListNode temp, int k) {
+38        k--;
+39
+40        while (temp != null && k > 0) {
+41            temp = temp.next;
+42            k--;
+43        }
+44
+45        return temp;
+46    }
+47}
